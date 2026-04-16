@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>FANoFAN</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+     <script src="java.js"></script>
+    </body>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        :root {
+            /* Professional Dark Palette */
+            --magma-grey: #1a1a1b;
+            --knight-blue: #1e293b;
+            --accent-gold: #c5a059;
+            --matte-black: #111111;
+            --text-light: #f1f5f9;
+            --card-bg: #262626;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--knight-blue);
+            /* Dark Theme Base */
+            color: var(--text-light);
+        }
+
+        /* Professional Navbar - Dark Mode */
+        .navbar {
+            background: rgba(17, 17, 17, 0.95) !important;
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid #333;
+        }
+
+        .navbar-brand,
+        .nav-link {
+            color: var(--text-light) !important;
+        }
+
+        /* Hero Section - Dramatic Contrast */
+        .hero {
+            background: linear-gradient(135deg, var(--matte-black) 0%, var(--knight-blue) 100%);
+            padding: 100px 0;
+            border-bottom: 2px solid var(--accent-gold);
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 80px;
+        }
+
+        .hero h1 {
+            font-size: 3.8rem;
+            font-weight: 900;
+            /* Magma to Gold Gradient */
+            background: linear-gradient(to right, #ffffff, var(--accent-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -2px;
+        }
+
+        .hero p {
+            color: #94a3b8 !important;
+        }
+
+        /* Card Professionalism - Matte Black Look */
+        .card {
+            border: 1px solid #333;
+            border-radius: 15px;
+            transition: all 0.5s ease;
+            background: var(--card-bg);
+            /* Dark Magma Surface */
+        }
+
+        .card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+            border-color: var(--accent-gold);
+        }
+
+        .card-img-top {
+            height: 280px;
+            object-fit: contain;
+            padding: 25px;
+            background: white;
+            /* Darker pocket for image */
+            border-radius: 15px 15px 0 0;
+            filter: brightness(0.9);
+            /* Makes fans look more "Matte" */
+        }
+
+        .card-title {
+            font-weight: 700;
+            color: #ffffff;
+            font-size: 1.2rem;
+        }
+
+        .card-text {
+            color: #94a3b8;
+        }
+
+        /* Buttons - High-End Accent */
+        .btn-primary {
+            background: var(--accent-gold);
+            border: none;
+            color: #000;
+            border-radius: 8px;
+            padding: 10px 24px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary:hover {
+            background: #b38f4d;
+            color: #fff;
+        }
+
+        .btn-outline-primary {
+            border-radius: 8px;
+            border: 1px solid var(--accent-gold);
+            color: var(--accent-gold);
+            font-weight: 600;
+        }
+
+        .btn-outline-primary:hover {
+            background: var(--accent-gold);
+            border-color: var(--accent-gold);
+            color: #000;
+        }
+
+        /* Pricing Glow */
+        .text-primary.fw-bold {
+            font-size: 1.4rem;
+            color: var(--accent-gold) !important;
+            text-shadow: 0 0 10px rgba(197, 160, 89, 0.2);
+        }
+
+        /* Section Headings */
+        h2 {
+            color: #fff;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        h2::after {
+            background: var(--accent-gold);
+            /* Gold underline */
+        }
+
+        .bg-light {
+            background-color: var(--magma-grey) !important;
+            /* Dark Magma section background */
+        }
+    </style>
+</head>
+<div class="modal fade" id="loginModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content"
+            style="background: var(--card-bg); border: 1px solid var(--accent-gold); border-radius: 15px;">
+            <div class="modal-header border-0">
+                <h5 class="modal-title fw-bold" style="color: var(--accent-gold);">WELCOME BACK</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-4">
+                <form>
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold" style="color: #94a3b8;">EMAIL ADDRESS</label>
+                        <input type="email" class="form-control"
+                            style="background: #1a1a1b; border: 1px solid #444; color: #fff;" placeholder="Enter email">
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label small fw-bold" style="color: #94a3b8;">PASSWORD</label>
+                        <input type="password" class="form-control"
+                            style="background: #1a1a1b; border: 1px solid #444; color: #fff;"
+                            placeholder="Enter password">
+                    </div>
+                    <button type="button" class="btn btn-primary w-100">Login to Account</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="signupModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content"
+            style="background: var(--card-bg); border: 1px solid var(--accent-gold); border-radius: 15px;">
+            <div class="modal-header border-0">
+                <h5 class="modal-title fw-bold" style="color: var(--accent-gold);">JOIN FANoFAN</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-4">
+                <form>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label small fw-bold" style="color: #94a3b8;">FULL NAME</label>
+                            <input type="text" class="form-control"
+                                style="background: #1a1a1b; border: 1px solid #444; color: #fff;" placeholder="Name">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label small fw-bold" style="color: #94a3b8;">USERNAME</label>
+                            <input type="text" class="form-control"
+                                style="background: #1a1a1b; border: 1px solid #444; color: #fff;"
+                                placeholder="Username">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold" style="color: #94a3b8;">EMAIL ADDRESS</label>
+                        <input type="email" class="form-control"
+                            style="background: #1a1a1b; border: 1px solid #444; color: #fff;"
+                            placeholder="email@example.com">
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label small fw-bold" style="color: #94a3b8;">PASSWORD</label>
+                        <input type="password" class="form-control"
+                            style="background: #1a1a1b; border: 1px solid #444; color: #fff;"
+                            placeholder="Create password">
+                    </div>
+                    <button type="button" class="btn btn-primary w-100">Create My Account</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
+        <div class="container">
+
+            <img src="../images/fan-removebg-preview.png" alt="" height="60">
+            <a class="navbar-brand fw-bold text-primary" href="#">FANoFAN</a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navMenu">
+
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Home</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about-section">About</a>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                            Categories
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#fans">Ceiling Fans</a></li>
+                            <li><a class="dropdown-item" href="#table-fans-section">Table Fans</a></li>
+                            <li><a class="dropdown-item" href="#stand-fans-section">Standing Fans</a></li>
+                            <li><a class="dropdown-item" href="#exhaust-section">Exhaust Fans</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Gallery</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact-section">Contact Us</a>
+                    </li>
+                </ul>
+
+                <div class="d-flex">
+                    <a href="#" class="btn btn-outline-primary btn-custom me-2" data-bs-toggle="modal"
+                        data-bs-target="#loginModal">Login</a>
+                    <a href="#" class="btn btn-primary btn-custom" data-bs-toggle="modal"
+                        data-bs-target="#signupModal">Sign Up</a>
+                </div>
+
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="container">
+            <div class="row align-items-center">
+
+                <!-- TEXT -->
+                <div class="col-md-6 text-center text-md-start">
+                    <h1>Stay Cool with Modern Fans</h1>
+                    <p>Discover high-quality, energy-efficient fans for your home and office.</p>
+                    <a href="#" class="btn btn-primary btn-lg mt-3">Shop Now</a>
+                </div>
+
+                <!-- IMAGE -->
+                <div class="col-md-6 text-center">
+                    <img src="../images/fan-removebg-preview.png" alt="Fan">
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- PRODUCTS -->
+    <section>
+        <div class="container" id="fans">
+            <h2 class="mb-5 text-center">Gallery</h2>
+
+            <div class="row">
+
+                <!-- Card 1 -->
+                <div class="col-md-3">
+                    <div class="card shadow-sm">
+                        <img src="../images/cieling fan.jpg" class="card-img-top" alt="cieling fan">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Ceiling Fan</h5>
+                            <p class="card-text">High speed and energy efficient.</p>
+                            <a href="#" class="btn btn-primary">Buy Now</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="col-md-3">
+                    <div class="card shadow-sm">
+                        <img src="../images/table fan.jpg" class="card-img-top" alt="table fan">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">table Fan</h5>
+                            <p class="card-text">Portable and powerful airflow.</p>
+                            <a href="#" class="btn btn-primary">Buy Now</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="col-md-3">
+                    <div class="card shadow-sm">
+                        <img src="../images/stand fan.jpg" class="card-img-top" alt="">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">standing Fan</h5>
+                            <p class="card-text">Adjustable height and speed.</p>
+                            <a href="#" class="btn btn-primary">Buy Now</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="col-md-3">
+                    <div class="card shadow-sm">
+                        <img src="../images/exha.jpg" class="card-img-top" alt="">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">exhaust fan</h5>
+                            <p class="card-text">Keeps your space fresh.</p>
+                            <a href="#" class="btn btn-primary">Buy Now</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <section class="bg-light">
+        <div class="container" id="products">
+            <h2 class="mb-5 text-center">Our Product Collection</h2>
+
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+
+                <div class="col">
+                    <div class="card h-100 shadow-sm border-0">
+                        <img src="../images/cieling fan.jpg" class="card-img-top" alt="Product 1">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Premium Golden Fan</h5>
+                            <p class="text-primary fw-bold">pkr2,500</p>
+                            <a href="#" class="btn btn-outline-primary btn-sm">View Details</a>
+                            <a href="#" class="btn btn-primary btn-sm">Add to Cart</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card h-100 shadow-sm border-0">
+                        <img src="../images/cieling 2.jpg" class="card-img-top" alt="Product 2">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Classic black fan</h5>
+                            <p class="text-primary fw-bold">pkr6,000</p>
+                            <a href="#" class="btn btn-outline-primary btn-sm">View Details</a>
+                            <a href="#" class="btn btn-primary btn-sm">Add to Cart</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card h-100 shadow-sm border-0">
+                        <img src="../images/cieling 3.jpg" class="card-img-top" alt="Product 3">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Silent small fan</h5>
+                            <p class="text-primary fw-bold">pkr10,000</p>
+                            <a href="#" class="btn btn-outline-primary btn-sm">View Details</a>
+                            <a href="#" class="btn btn-primary btn-sm">Add to Cart</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card h-100 shadow-sm border-0">
+                        <img src="../images/cieling 4.jpg" class="card-img-top" alt="Product 4">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Rare blue colour fan</h5>
+                            <p class="text-primary fw-bold">pkr5,000</p>
+                            <a href="#" class="btn btn-outline-primary btn-sm">View Details</a>
+                            <a href="#" class="btn btn-primary btn-sm">Add to Cart</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col" id="table-fans-section">
+                    <div class="card h-100 shadow-sm border-0">
+                        <img src="../images/table fan 2.jpg" class="card-img-top" alt="Product 5">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">FAN Movable</h5>
+                            <p class="text-primary fw-bold">pkr1,900</p>
+                            <a href="#" class="btn btn-outline-primary btn-sm">View Details</a>
+                            <a href="#" class="btn btn-primary btn-sm">Add to Cart</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card h-100 shadow-sm border-0">
+                        <img src="../images/table fan 3.jpg" class="card-img-top" alt="Product 6">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Smart Wi-Fi Fan</h5>
+                            <p class="text-primary fw-bold">pkr3,000</p>
+                            <a href="#" class="btn btn-outline-primary btn-sm">View Details</a>
+                            <a href="#" class="btn btn-primary btn-sm">Add to Cart</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card h-100 shadow-sm border-0">
+                        <img src="../images/table fan 4.jpg" class="card-img-top" alt="Product 7"
+                            style="height: 280px; object-fit: contain;">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">portable exhaust fan</h5>
+                            <p class="text-primary fw-bold">pkr4,000</p>
+                            <a href="#" class="btn btn-outline-primary btn-sm">View Details</a>
+                            <a href="#" class="btn btn-primary btn-sm">Add to Cart</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card h-100 shadow-sm border-0">
+                        <img src="../images/table fan.jpg" class="card-img-top" alt="Product 8"
+                            style="height: 280px; object-fit: contain;">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">small exhaust Fan</h5>
+                            <p class="text-primary fw-bold">pkr5,000</p>
+                            <a href="#" class="btn btn-outline-primary btn-sm">View Details</a>
+                            <a href="#" class="btn btn-primary btn-sm">Add to Cart</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col" id="stand-fans-section">
+                    <div class="card h-100 shadow-sm border-0">
+                        <img src="../images/stand 4.jpg" class="card-img-top" alt="Product 9"
+                            style="height: 280px; object-fit: contain;">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">full size stand fan</h5>
+                            <p class="text-primary fw-bold">pkr12,000</p>
+                            <a href="#" class="btn btn-outline-primary btn-sm">View Details</a>
+                            <a href="#" class="btn btn-primary btn-sm">Add to Cart</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card h-100 shadow-sm border-0">
+                        <img src="../images/stand fan 2.jpg" class="card-img-top" alt="Product 10">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Child-Safe Bladeless</h5>
+                            <p class="text-primary fw-bold">pkr11,000</p>
+                            <a href="#" class="btn btn-outline-primary btn-sm">View Details</a>
+                            <a href="#" class="btn btn-primary btn-sm">Add to Cart</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card h-100 shadow-sm border-0">
+                        <img src="../images/stand fan 3.jpg" class="card-img-top" alt="Product 11">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">stand Top Turbo</h5>
+                            <p class="text-primary fw-bold">pkr13,000</p>
+                            <a href="#" class="btn btn-outline-primary btn-sm">View Details</a>
+                            <a href="#" class="btn btn-primary btn-sm">Add to Cart</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card h-100 shadow-sm border-0">
+                        <img src="../images/stand 4.jpg" class="card-img-top" alt="Product 12"
+                            style="height: 280px; object-fit: contain;">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Antique Powered Fan</h5>
+                            <p class="text-primary fw-bold">pkr16,000</p>
+                            <a href="#" class="btn btn-outline-primary btn-sm">View Details</a>
+                            <a href="#" class="btn btn-primary btn-sm">Add to Cart</a>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card h-100 shadow-sm border-0">
+                        <img src="../images/exhaust 2.jpg" class="card-img-top" alt="Product 12"
+                            style="height: 280px; object-fit: contain;">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Exhaust fan</h5>
+                            <p class="text-primary fw-bold">pkr17,999</p>
+                            <a href="#" class="btn btn-outline-primary btn-sm">View Details</a>
+                            <a href="#" class="btn btn-primary btn-sm">Add to Cart</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card h-100 shadow-sm border-0">
+                        <img src="../images/exhaust 3.jpg" class="card-img-top" alt="Product 12"
+                            style="height: 280px; object-fit: contain;">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Antique exhaust fan</h5>
+                            <p class="text-primary fw-bold">pkr18,999</p>
+                            <a href="#" class="btn btn-outline-primary btn-sm">View Details</a>
+                            <a href="#" class="btn btn-primary btn-sm">Add to Cart</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card h-100 shadow-sm border-0">
+                        <img src="../images/exhaust 4.jpg" class="card-img-top" alt="Product 12"
+                            style="height: 280px; object-fit: contain;">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">powerfull Ehaust fan</h5>
+                            <p class="text-primary fw-bold">pkr20,999</p>
+                            <a href="#" class="btn btn-outline-primary btn-sm">View Details</a>
+                            <a href="#" class="btn btn-primary btn-sm">Add to Cart</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col" id="exhaust-section">
+                    <div class="card h-100 shadow-sm border-0">
+                        <img src="../images/exha.jpg" class="card-img-top" alt="Product 12"
+                            style="height: 280px; object-fit: contain;">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Powered Exhaust Fan</h5>
+                            <p class="text-primary fw-bold">pkr5,999</p>
+                            <a href="#" class="btn btn-outline-primary btn-sm">View Details</a>
+                            <a href="#" class="btn btn-primary btn-sm">Add to Cart</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <section id="about-section" class="py-5"
+        style="background: var(--matte-black); border-top: 2px solid var(--accent-gold);">
+        <div class="container">
+            <div class="row g-5">
+
+                <div class="col-lg-6">
+                    <h2 class="mb-4">About FANoFAN</h2>
+                    <p style="color: #94a3b8; line-height: 1.8;">
+                        Welcome to <strong>FANoFAN</strong>, your premium destination for high-quality cooling
+                        solutions.
+                        We specialize in providing energy-efficient, modern, and stylish fans that fit perfectly
+                        into your home or office decor. Our mission is to combine cutting-edge technology with
+                        elegant designs to keep you cool while saving on electricity bills.
+                        With over 10 years of experience, we ensure every product meets the highest standards of
+                        durability.
+                    </p>
+                    <div class="mt-4">
+                        <span class="badge p-2 me-2"
+                            style="border: 1px solid var(--accent-gold); color: var(--accent-gold);">Premium
+                            Quality</span>
+                        <span class="badge p-2 me-2"
+                            style="border: 1px solid var(--accent-gold); color: var(--accent-gold);">Energy
+                            Efficient</span>
+                        <span class="badge p-2"
+                            style="border: 1px solid var(--accent-gold); color: var(--accent-gold);">Fast
+                            Delivery</span>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <h2 class="mb-4 text-center text-lg-start">Customer Reviews</h2>
+
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <div class="p-3"
+                                style="background: var(--card-bg); border-radius: 10px; border-left: 4px solid var(--accent-gold);">
+                                <p class="mb-1 italic" style="color: #f1f5f9;">"The Premium Golden Fan is amazing!
+                                    Silent and very powerful. Worth every rupee."</p>
+                                <small style="color: var(--accent-gold); font-weight: bold;">— Ahmed Khan</small>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="p-3"
+                                style="background: var(--card-bg); border-radius: 10px; border-left: 4px solid var(--accent-gold);">
+                                <p class="mb-1" style="color: #f1f5f9;">"Best customer service and fast delivery in
+                                    Karachi. Highly recommended!"</p>
+                                <small style="color: var(--accent-gold); font-weight: bold;">— Sara Ahmed</small>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="text-center py-4" style="background: #000; color: #555; font-size: 0.9rem;">
+        <p class="mb-0">&copy; 2026 FANoFAN. All Rights Reserved.</p>
+        <section id="contact-section" class="py-5" style="background: var(--knight-blue);">
+            <div class="container">
+                <h2 class="mb-5 text-center">Contact Us</h2>
+                <div class="row g-4">
+
+                    <div class="col-lg-4">
+                        <div class="p-4 h-100"
+                            style="background: var(--card-bg); border-radius: 15px; border: 1px solid #333;">
+                            <h5 style="color: var(--accent-gold);" class="fw-bold mb-3">GET IN TOUCH</h5>
+
+                            <div class="mb-4">
+                                <p class="mb-0 small fw-bold" style="color: #94a3b8;">ADDRESS</p>
+                                <p>123 Magma Tower, Business District, Karachi, Pakistan</p>
+                            </div>
+
+                            <div class="mb-4">
+                                <p class="mb-0 small fw-bold" style="color: #94a3b8;">PHONE</p>
+                                <p>+92 21 34567890<br>+92 300 1234567</p>
+                            </div>
+
+                            <div class="mb-0">
+                                <p class="mb-0 small fw-bold" style="color: #94a3b8;">EMAIL</p>
+                                <p>support@fanofan.com<br>info@fanofan.com</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-8">
+                        <div class="p-4"
+                            style="background: var(--card-bg); border-radius: 15px; border: 1px solid #333;">
+                            <form>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label small fw-bold" style="color: #94a3b8;">YOUR
+                                            NAME</label>
+                                        <input type="text" class="form-control"
+                                            style="background: #1a1a1b; border: 1px solid #444; color: #fff;"
+                                            placeholder="John Doe">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label small fw-bold" style="color: #94a3b8;">EMAIL
+                                            ADDRESS</label>
+                                        <input type="email" class="form-control"
+                                            style="background: #1a1a1b; border: 1px solid #444; color: #fff;"
+                                            placeholder="name@example.com">
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label small fw-bold" style="color: #94a3b8;">SUBJECT</label>
+                                    <input type="text" class="form-control"
+                                        style="background: #1a1a1b; border: 1px solid #444; color: #fff;"
+                                        placeholder="Inquiry about product">
+                                </div>
+                                <div class="mb-4">
+                                    <label class="form-label small fw-bold" style="color: #94a3b8;">MESSAGE</label>
+                                    <textarea class="form-control" rows="4"
+                                        style="background: #1a1a1b; border: 1px solid #444; color: #fff;"
+                                        placeholder="How can we help you?"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary px-5">Send Message</button>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </footer>
+    ```
+
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
